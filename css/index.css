@@ -1,10 +1,11 @@
-html,
+/* BODY */
+
 body {
   height: 100%;
   margin: 0;
-}
-
-body {
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #d6eadf;
   display: flex;
   flex-direction: column;
 }
@@ -15,6 +16,8 @@ body {
   display: flex;
   flex-direction: row;
   align-items: center;
+  background-color: #1f776c;
+  color: white;
   justify-content: space-around;
   border-bottom: 1px solid black;
   height: 3rem;
@@ -27,7 +30,7 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  padding: 0;
+  padding:0;
 }
 .linksIndex li {
   padding: 1rem;
@@ -41,16 +44,29 @@ body {
 }
 .linksIndex li a {
   text-decoration: none;
+  color: white;
+}
+
+.buttonNav {
+    display: inline-block;
+    background-color: #0c464c;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
 }
 
 /* MAIN */
 
-.mainIndex {
-  flex: 1;
-  display: flex;
-  flex-direction: row;
-  height: fit-content;
+.boton {
+    display: inline-block;
+    background-color: #0c464c;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
 }
+
 .mainIndex article {
   height: 80%;
   padding: 1rem;
@@ -77,10 +93,9 @@ body {
 /* FOOTER */
 
 .footerIndex {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 0 1rem 0 1rem;
-  border-top: 1px solid black;
-  height: 3rem;
+ background-color: #222;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
 }
