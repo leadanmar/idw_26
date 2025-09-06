@@ -1,0 +1,9 @@
+.principios:last-of-type {
+  display: flex;
+  flex-direction: column;
+  width: 12rem;
+}
+
+ul {
+  text-align: left;
+}

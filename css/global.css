@@ -1,10 +1,12 @@
 /* BODY */
 
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap");
+
 body {
   height: 100%;
   margin: 0;
   padding: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Sora", sans-serif;
   background-color: #d6eadf;
   display: flex;
   flex-direction: column;
@@ -30,7 +32,7 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  padding:0;
+  padding: 0;
 }
 .links li {
   padding: 1rem;
@@ -48,22 +50,43 @@ body {
 }
 
 .buttonNav {
-    display: inline-block;
-    background-color: #0c464c;
-    color: white;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
+  display: inline-block;
+  background-color: #0c464c;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    filter: brightness(2);
+  }
 }
 
+.mainIndex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 2rem;
+  text-align: center;
+}
 
+.mainIndex article,
+section,
+.imagenAside {
+  width: 80%;
+  margin-bottom: 2rem;
+}
 
 /* FOOTER */
 
 .footer {
- background-color: #222;
-    color: white;
-    text-align: center;
-    padding: 10px;
-    margin-top: 20px;
+  background-color: #222;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  margin-top: 20px;
 }

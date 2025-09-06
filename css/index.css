@@ -1,35 +1,7 @@
-
-
 /* MAIN */
-.mainIndex {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  box-sizing: border-box;
-  padding: 2rem;
-  text-align: center;
-}
-
-.mainIndex article,
-.imagenAside{
-  width: 80%;
-  max-width: 800px;
-  margin-bottom: 2rem;
-}
-
-.boton {
-  display: inline-block;
-  background-color: #0c464c;
-  color: white;
-  padding: 10px 20px;
-  text-decoration: none;
-  border-radius: 5px;
-}
 
 .imagenAside {
-  width: 80%; 
-  height: auto; 
-  border-radius: 15px; 
+  width: 80%;
+  height: auto;
+  border-radius: 15px;
 }
