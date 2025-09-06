@@ -1,0 +1,92 @@
+/* BODY */
+
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap");
+
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: "Sora", sans-serif;
+  background-color: #d6eadf;
+  display: flex;
+  flex-direction: column;
+}
+
+/* HEADER */
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #1f776c;
+  color: white;
+  justify-content: space-around;
+  border-bottom: 1px solid black;
+  height: 3rem;
+}
+.nav {
+  display: flex;
+  flex-direction: row;
+}
+.links {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 0;
+}
+.links li {
+  padding: 1rem;
+  list-style-type: none;
+  cursor: pointer;
+}
+.links li {
+  padding: 1rem;
+  list-style-type: none;
+  cursor: pointer;
+}
+.links li a {
+  text-decoration: none;
+  color: white;
+}
+
+.buttonNav {
+  display: inline-block;
+  background-color: #0c464c;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    filter: brightness(2);
+  }
+}
+
+.mainIndex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 2rem;
+  text-align: center;
+}
+
+.mainIndex article,
+section,
+.imagenAside {
+  width: 80%;
+  margin-bottom: 2rem;
+}
+
+/* FOOTER */
+
+.footer {
+  background-color: #222;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  margin-top: 20px;
+}
