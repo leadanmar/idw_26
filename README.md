@@ -1,8 +1,10 @@
-# idw26
-repositorio proyecto IDW
+# idw_26
 
-Alumnos:
-    - Jesús Eduardo Casabillanos
-    - Leandro Martinez
-    - Tamara Soledad Martinez
-    - Matías Gabriel Terrera
+Repositorio Proyecto IDW S.A.
+
+### Alumnos
+
+- Jesús Eduardo Casabillanos
+- Leandro Martinez
+- Tamara Soledad Martinez
+- Matías Gabriel Terrera

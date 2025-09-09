@@ -16,6 +16,11 @@
   font-size: 16px;
   color: #555;
   outline: none;
+
+  &.textarea {
+    resize: none;
+    min-height: 5rem;
+  }
 }
 
 .input-style:focus {
@@ -27,10 +32,18 @@
   display: flex;
   gap: 2rem;
   flex-direction: column;
+  width: 25rem;
+  margin: 2rem 0;
 }
 
 .contacto {
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  .formulario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
