@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profesionales - IDW S.A.</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- CSS personalizado -->
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/global.css">
+
+  <style>
+    .card-img-top {
+      object-fit: cover;
+      object-position: center;
+    }
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    .card-text {
+      font-size: 1rem;
+      color: #555;
+    }
+    .btn-reserva {
+      margin-top: 10px;
+    }
+
+    #profesionesTabs {
+      display: flex;
+      justify-content: center; /* centra los botones */
+    } 
+
+    .card-body {
+        background-color: #1f776c;
+        border-top: 1px solid #ccc; /* opcional: separación con la imagen */
+        padding: 15px; /* ajusta el espacio interno */
+        text-align: center; /* centra el contenido */
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1f776c">
+      <div class="container-fluid">
+        <h1 style="color: white; margin:0">IDW S.A.</h1>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-lg-row w-100 justify-content-center gap-3">
+            <li class="nav-item"><a class="nav-link" href="index.html" style="color:white">Inicio</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" style="color:white">Reservar turno</a></li>
+            <li class="nav-item"><a class="nav-link" href="institucional.html" style="color:white">Información Institucional</a></li>
+            <li class="nav-item"><a class="nav-link" href="contacto.html" style="color:white">Contacto</a></li>
+            <li class="nav-item"><a class="nav-link active" href="profesionales.html" style="color:white">Profesionales</a></li>
+          </ul>
+          <span class="navbar-text">
+            <a href="#" class="buttonNav" style="color:white">Entrar</a>
+          </span>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Contenido principal -->
+  <div class="container my-5">
+    <h1 class="text-center mb-4">Catálogo de Profesionales</h1>
+
+    <!-- Pestañas por especialidad -->
+    <ul class="nav nav-tabs mb-4" id="profesionesTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="cardio-tab" data-bs-toggle="tab" data-bs-target="#cardio" type="button" role="tab">Cardiólogos</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="pedia-tab" data-bs-toggle="tab" data-bs-target="#pedia" type="button" role="tab">Pediatras</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="derma-tab" data-bs-toggle="tab" data-bs-target="#derma" type="button" role="tab">Dermatólogos</button>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+
+      <!-- Cardiólogos -->
+      <div class="tab-pane fade show active" id="cardio" role="tabpanel">
+        <div class="row g-4">
+          <div class="col-12 col-sm-6 col-md-4">
+            <div class="card">
+              <img src="img/profesionales/cardiologo_juan.jpg" class="card-img-top" alt="Dr. Juan Pérez">
+              <div class="card-body text-center">
+                <h5 class="card-title">Dr. Juan Pérez</h5>
+                <p class="card-text">Cardiólogo</p>
+                <a href="#" class="btn btn-primary btn-reserva">Reservar turno</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6 col-md-4">
+            <div class="card">
+              <img src="img/profesionales/cardiologo_Pedro.png" class="card-img-top" alt="Dr. Pedro Sánchez">
+              <div class="card-body text-center">
+                <h5 class="card-title">Dr. Pedro Sánchez</h5>
+                <p class="card-text">Cardiólogo</p>
+                <a href="#" class="btn btn-primary btn-reserva">Reservar turno</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6 col-md-4">
+            <div class="card">
+              <img src="img/profesionales/cardiologa_martina.jpg" class="card-img-top" alt="Dr. Martina Pereira">
+              <div class="card-body text-center">
+                <h5 class="card-title">Dr. Martina Pereira</h5>
+                <p class="card-text">Cardiólogo</p>
+                <a href="#" class="btn btn-primary btn-reserva">Reservar turno</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pediatras -->
+      <div class="tab-pane fade" id="pedia" role="tabpanel">
+        <div class="row g-4">
+          <div class="col-12 col-sm-6 col-md-4">
+            <div class="card">
+              <img src="img/profesional4.jpg" class="card-img-top" alt="Dra. Laura Gómez">
+              <div class="card-body text-center">
+                <h5 class="card-title">Dra. Laura Gómez</h5>
+                <p class="card-text">Pediatra</p>
+                <a href="#" class="btn btn-primary btn-reserva">Reservar turno</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dermatólogos -->
+      <div class="tab-pane fade" id="derma" role="tabpanel">
+        <div class="row g-4">
+          <div class="col-12 col-sm-6 col-md-4">
+            <div class="card">
+              <img src="img/profesional5.jpg" class="card-img-top" alt="Dr. Carlos López">
+              <div class="card-body text-center">
+                <h5 class="card-title">Dr. Carlos López</h5>
+                <p class="card-text">Dermatólogo</p>
+                <a href="#" class="btn btn-primary btn-reserva">Reservar turno</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer mt-5">
+    <div class="text-center py-3">
+      <p>© 2025 Consultorio Médico IDW - Todos los derechos reservados</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
