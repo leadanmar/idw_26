@@ -71,31 +71,6 @@ body {
   }
 }
 
-/* Estilo por defecto */
-.nav-tabs .nav-link {
-  background-color: #1f776c; /* color por defecto */
-  color: white;
-  border-radius: 3px; /* bordes redondeados arriba */
-  margin-right: 5px;          /* separación entre tabs */
-  transition: background-color 0.3s; /* transición suave al cambiar color */
-}
-
-/* Hover: al pasar el mouse */
-.nav-tabs .nav-link:hover {
-  background-color: #166158; /* color un poco más oscuro */
-  color: white;
-}
-
-/* Pestaña activa */
-.nav-tabs .nav-link.active {
-  background-color: #0f4d46; /* color de la pestaña seleccionada */
-  color: white;
-  font-weight: bold;
-}
-
-
-
-
 .mainIndex {
   display: flex;
   flex-direction: column;
