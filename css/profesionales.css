@@ -1,78 +1,74 @@
- body {
-    margin: 0;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    }
-
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 
 .container-principal {
-    flex: 1;
+  flex: 1;
 }
 
 /* Estilos de las cards */
 .card-img-top {
-    object-fit: cover;
-    object-position: center;
-    height: 250px;
+  object-fit: cover;
+  object-position: center;
+  height: 250px;
 }
 
 .card-title {
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: white;
-    }
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+}
 
 .card-text {
-      font-size: 1rem;
-      color: white;
-    }
+  font-size: 1rem;
+  color: white;
+}
 
 .card-body {
-      background-color: #1f776c;
-      border-top: 1px solid #ccc;
-      padding: 15px;
-      text-align: center;
-    }
+  background-color: #1f776c;
+  border-top: 1px solid #ccc;
+  padding: 15px;
+  text-align: center;
+}
 
 #profesionesTabs {
-      display: flex;
-      justify-content: center;
-    }
-
+  display: flex;
+  justify-content: center;
+}
 
 .boton-reservar {
-      display: inline-block;
-      background-color: #1f776c;
-      color: white;
-      font-weight: bold;
-      padding: 10px 20px;
-      border-radius: 5px;
-      margin-top: 20px;
-      text-decoration: none;
-    }
+  display: inline-block;
+  background-color: #1f776c;
+  color: white;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-top: 20px;
+  text-decoration: none;
+}
 
 .boton-reservar:hover {
-      background-color: #166158; 
-      color: #fff;
-    }
-
+  background-color: #166158;
+  color: #fff;
+}
 
 .nav-tabs .nav-link {
-      background-color: #1f776c;
-      color: white;
-      border: none;
-      margin-right: 2px;
-      border-radius: 5px 5px 0 0;
-    }
+  background-color: #1f776c;
+  color: white;
+  border: none;
+  margin-right: 2px;
+  border-radius: 5px 5px 0 0;
+}
 
 .nav-tabs .nav-link:hover {
-      background-color: #166158;
-    }
+  background-color: #166158;
+}
 
 .nav-tabs .nav-link.active {
-      background-color: #0f4d46;
-      font-weight: bold;
-      color: white;
-    }
-
+  background-color: #0f4d46;
+  font-weight: bold;
+  color: white;
+}
