@@ -27,23 +27,33 @@
   border-color: #007bff;
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
-
-.contenedorFormulario {
-  display: flex;
-  gap: 2rem;
-  flex-direction: column;
-  width: 25rem;
-  margin: 2rem 0;
-}
-
 .contacto {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+}
 
-  .formulario {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+.formulario {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+}
+.contenedorFormulario {
+  display: flex;
+  gap: 2rem;
+  flex-direction: column;
+  width: 100%;
+}
+.informacion {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.imagenAside {
+  width: 80%;
+  height: auto;
 }
