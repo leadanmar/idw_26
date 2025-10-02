@@ -1,7 +1,7 @@
-.principios:last-of-type {
+.principios {
   display: flex;
   flex-direction: column;
-  width: 12rem;
+  max-width: 600px;
 }
 
 ul {

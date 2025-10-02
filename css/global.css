@@ -82,11 +82,8 @@ body {
   text-align: center;
 }
 
-.mainIndex article,
-section,
 .imagenAside {
   width: 80%;
-  margin-bottom: 2rem;
 }
 
 /* FOOTER */
