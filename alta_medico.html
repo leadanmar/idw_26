@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Medicos</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/reservar_turno.css" />
+  </head>
+  <body>
+    <header>
+      <nav
+        class="navbar navbar-expand-lg navbar-dark"
+        style="background-color: #1f776c"
+      >
+        <div class="container-fluid">
+          <h1 style="color: white; margin: 0">IDW S.A.</h1>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarText"
+            aria-controls="navbarText"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarText">
+            <ul
+              class="navbar-nav me-auto mb-2 mb-lg-0 flex-lg-row w-100 justify-content-center gap-3"
+            >
+              <li class="nav-item">
+                <a class="nav-link" href="index.html" style="color: white"
+                  >Inicio</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="reservar_turno.html"
+                  style="color: white"
+                  >Reservar turno</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="institucional.html"
+                  style="color: white"
+                  >Información Institucional</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="contacto.html" style="color: white"
+                  >Contacto</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  href="profesionales.html"
+                  style="color: white"
+                  >Profesionales</a
+                >
+              </li>
+            </ul>
+            <span class="navbar-text">
+              <a href="#" class="buttonNav" style="color: white">Entrar</a>
+            </span>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container">
+      <section>
+        <h2 class="mb-3">alta Medicos</h2>
+        <form id="altaMedicoForm">
+
+          <div class="mb-3">
+            <label for="nombre_completo" class="form-label">Nombre Completo</label>
+            <input type="text" class="form-control" id="nombre_completo" required>
+          </div> 
+          <div class="mb-3">
+            <label for="especialidad" class="form-label">Especialidad</label>
+            <input type="text" class="form-control" id="especialidad" required>
+          </div>
+          <div class="mb-3">
+            <label for="obra_social" class="form-label">Obra Social</label>
+            <input type="text" class="form-control" id="obra_social" required>
+          </div>
+          <div class="mb-3">
+            <label for="telefono" class="form-label">telefono</label>
+            <input type="tel" class="form-control" id="telefono" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" required>
+          </div>
+          <button type="submit" class="buttonNav">Registrar Medico</button>
+        </form>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>© 2025 Consultorio Médico IDW - Todos los derechos reservados</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts/alta_medicos.js"></script>
+  </body>
+</html>
