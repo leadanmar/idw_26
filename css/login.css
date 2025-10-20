@@ -1,71 +1,75 @@
-.mainLogin{
-    flex-grow: 1; 
-    display: flex;
-    justify-content: center;
-    align-items: center; 
-    width: 100%; 
-    padding: 20px; 
+.mainLogin {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
 }
 
-form{
-    width: 300px;
-    height: auto; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    box-shadow: 10px 4px 10px 10px #ccc;
-    border-radius: 20px;
-    background-color: #1f776c; 
-    padding: 20px;
+form {
+  width: 300px;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 10px 4px 10px 10px #ccc;
+  border-radius: 20px;
+  background-color: #1f776c;
+  padding: 20px;
 }
 
 form img {
-    width: 100px;
-    height: 100px;
-    border: 2px solid #1f776c;
-    border-radius: 50%;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1); 
+  width: 100px;
+  height: 100px;
+  border: 2px solid #1f776c;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-form input[type="text"], input[type="password"]{
-    outline: 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 250px; 
-    padding: 10px;
-    margin-bottom: 10px;
+form input[type='text'],
+input[type='password'] {
+  outline: 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 250px;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
-form label{
-    font-weight: 500;
-    padding: 10px;
-    color: #ccc;
+form label {
+  font-weight: 500;
+  padding: 10px;
+  color: #ccc;
 }
 
-.box-visible{
-    width: 250  px;
-    height: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
+.box-visible {
+  width: 250 px;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
-form button{
-    outline: 0;
-    border: 0;
-    background-color: #0c464c;
-    border-radius: 20px;
-    cursor: pointer;
-    width: 250px;
-    padding: 5px;
-    transition: all .3s ease ease-in-out;
-    text-align: center;
-    color: #ccc;
-    font-weight: 500;
+form button {
+  outline: 0;
+  border: 0;
+  background-color: #0c464c;
+  border-radius: 20px;
+  cursor: pointer;
+  width: 250px;
+  padding: 5px;
+  transition: all 0.3s ease ease-in-out;
+  text-align: center;
+  color: #ccc;
+  font-weight: 500;
 }
 
-form button:hover{
-    opacity: .75;
+form button:hover {
+  opacity: 0.75;
+}
+#mensaje {
+  width: 100%;
 }
