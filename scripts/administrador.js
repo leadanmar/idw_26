@@ -129,7 +129,6 @@ function altaMedicos(event) {
 }
 
 ///Cargar medicos para edicion
-
 function cargarMedicoParaEdicion(id) {
   const medico = medicos.find((m) => m.id === id);
   if (medico) {
