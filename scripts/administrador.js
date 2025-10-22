@@ -123,12 +123,12 @@ function altaMedicos(event) {
     medicos.push(nuevoMedico);
     alert(`Médico ${nombre_completo} registrado.`);
     guardarYRenderizar();
+    preview.style.display = 'none';
     formAltaMedico.reset();
   }
 }
 
 ///Cargar medicos para edicion
-
 function cargarMedicoParaEdicion(id) {
   const medico = medicos.find((m) => m.id === id);
   if (medico) {
