@@ -71,7 +71,10 @@
                 >
               </li>
               <li class="nav-item solo-admin">
-                <a class="nav-link" style="color: white" href="administrador.html"
+                <a
+                  class="nav-link"
+                  style="color: white"
+                  href="administrador.html"
                   >Administrar Médicos</a
                 >
               </li>
@@ -88,7 +91,7 @@
 
     <main class="container">
       <section>
-        <h2 class="mb-3">alta Medicos</h2>
+        <h2 class="mb-3 mt-3">Alta Medicos</h2>
         <form id="altaMedicoForm">
           <div class="mb-3">
             <label for="nombre_completo" class="form-label"
@@ -123,35 +126,48 @@
             <label for="email" class="form-label">Email</label>
             <input type="email" class="form-control" id="email" required />
           </div>
-          <button type="submit" class="buttonNav" id="submitBtn">Registrar Médico</button>
-          <button type="button" class="buttonNav" id="cancelarBtn" style="display: none;">Cancelar</button>
+          <h2>Selecciona una imagen</h2>
+          <input type="file" id="inputImagen" accept="image/*" />
+          <br /><br />
+          <img id="preview" src="" alt="Vista previa" width="200" />
+          <button type="submit" class="buttonNav" id="submitBtn">
+            Registrar Médico
+          </button>
+          <button
+            type="button"
+            class="buttonNav"
+            id="cancelarBtn"
+            style="display: none;"
+          >
+            Cancelar
+          </button>
         </form>
       </section>
 
-      <hr class="mt-5 mb-4">
-        
-        <section>
-            <h2 class="mb-3">Lista de Médicos Registrados</h2>
-            <div class="table-responsive">
-                <table class="table table-striped table-hover" id="tablaMedicos">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Especialidad</th>
-                            <th>Obra Social</th>
-                            <th>Teléfono</th>
-                            <th>Email</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        </tbody>
-                </table>
-            </div>
-        </section>
+      <hr class="mt-5 mb-4" />
 
-        <input type="hidden" id="medicoId" value="">
+      <section>
+        <h2 class="mb-3">Lista de Médicos Registrados</h2>
+        <div class="table-responsive">
+          <table class="table table-striped table-hover" id="tablaMedicos">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Especialidad</th>
+                <th>Obra Social</th>
+                <th>Teléfono</th>
+                <th>Email</th>
+                <th>Foto</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <input type="hidden" id="medicoId" value="" />
     </main>
 
     <footer class="footer">
@@ -160,6 +176,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script src="scripts/admin.js"></script>
     <script src="scripts/auth.js"></script>
-    <script src="scripts/administrador.js"></script>
+    <script src="scripts/administrador.js" type="module"></script>
   </body>
 </html>
