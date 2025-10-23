@@ -2,7 +2,10 @@
 - Jesús Eduardo Casabillanos  
 - Leandro Martinez  
 - Tamara Soledad Martinez  
-- Matías Gabriel Terrera  
+- Matías Gabriel Terrera
+
+### ⚠️ **Importante**
+Para **agregar, editar o eliminar médicos**, es necesario **iniciar sesión con permisos de administrador**.
 
 ---
 
