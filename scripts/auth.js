@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const elementosAdmin = document.querySelectorAll('.solo-admin');
   const elementosPublicos = document.querySelectorAll('.solo-publico');
 
+  console.log(usuarioPermiso);
   if (usuarioLogueado) {
     elementosPrivados.forEach((el) => (el.style.display = 'block'));
     elementosPublicos.forEach((el) => (el.style.display = 'none'));
@@ -31,26 +32,63 @@ function actualizarNavbar() {
   const botonNavbar = document.querySelector('.navbar-text');
   const welcomeUser = document.getElementById('welcomeUser');
 
+  botonNavbar.innerHTML = '';
+
   if (usuarioLogueado) {
-    botonNavbar.innerHTML = `
-      <a href="login.html" class="buttonNav" style="color: white" onclick="cerrarSesion()"
-        >Salir</a
-      >
+    const salirLink = document.createElement('a');
+    salirLink.href = '#';
+    salirLink.className = 'buttonNav';
+    salirLink.style.color = 'white';
+    salirLink.textContent = 'Salir';
+
+    salirLink.addEventListener('click', function (e) {
+      e.preventDefault();
+      cerrarSesion();
+    });
+
+    botonNavbar.appendChild(salirLink);
+
+    welcomeUser.innerHTML = `
+      <button class="btn btn-secondary btn-sm me-lg-3 mb-2 mb-lg-0">${usuarioLogueado}</button>
       `;
-    /* welcomeUser.innerHTML = `
-      <span style="color: white">${usuarioLogueado}</span>
-      `; */
   } else {
     botonNavbar.innerHTML = `
-        <a href="login.html" class="buttonNav" style="color: white">Entrar</a>
-      `;
+      <a href="login.html" class="buttonNav" style="color: white">Entrar</a>
+    `;
   }
 }
 
 function cerrarSesion() {
   sessionStorage.removeItem('usuarioLogueado');
   sessionStorage.removeItem('permiso');
+  sessionStorage.removeItem('token');
   window.location.href = 'index.html';
 }
 
 actualizarNavbar();
+
+export async function login(userParam, passParam) {
+  try {
+    const response = await fetch('https://dummyjson.com/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: userParam,
+        password: passParam,
+      }),
+    });
+
+    if (!response.ok) {
+      console.error('Error al autenticar');
+      return false;
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error:', error);
+    return false;
+  }
+}

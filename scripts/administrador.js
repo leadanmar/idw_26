@@ -1,4 +1,12 @@
 import { medicosIniciales } from '../config/medicos.js';
+import {
+  inicializarInputImagen,
+  generarSelectEspecialidades,
+  generarObrasSociales,
+  obtenerObrasSeleccionadas,
+  imagenBase64,
+} from './formularioMedicos.js';
+import { renderizarMedicos } from './tablaMedicos.js';
 
 const inputImagen = document.getElementById('inputImagen');
 const preview = document.getElementById('preview');
@@ -12,98 +20,42 @@ let nextId = medicos.length > 0 ? Math.max(...medicos.map((m) => m.id)) + 1 : 1;
 let modoEdicion = false;
 
 let formAltaMedico, tablaBody, medicoIdInput, submitBtn, cancelarBtn;
-let inputNombre, inputEspecialidad, inputObraSocial, inputTelefono, inputEmail;
-
-///Input Image
-let imagenBase64 = '';
+let inputNombre,
+  inputEspecialidad,
+  inputTelefono,
+  inputEmail,
+  inputDescripcion,
+  inputValorConsulta;
 
 preview.style.display = 'none';
-inputImagen.addEventListener('change', function () {
-  const file = this.files[0];
 
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      imagenBase64 = e.target.result;
-      preview.src = imagenBase64;
-      preview.style.display = 'block';
-    };
-    reader.readAsDataURL(file);
-  } else {
-    // No hay archivo seleccionado
-    imagenBase64 = '';
-    preview.src = '';
-    preview.style.display = 'none';
-  }
-});
-
-//Renderizado de tabla
-function renderizarMedicos() {
-  if (!tablaBody) return;
-
-  tablaBody.innerHTML = '';
-
-  medicos.forEach((medico) => {
-    const fila = tablaBody.insertRow();
-
-    fila.insertCell().textContent = medico.id;
-    fila.insertCell().textContent = medico.nombre_completo;
-    fila.insertCell().textContent = medico.especialidad;
-    fila.insertCell().textContent = medico.obra_social;
-    fila.insertCell().textContent = medico.telefono;
-    fila.insertCell().textContent = medico.email;
-    // Insertar la imagen
-    const celdaImagen = fila.insertCell();
-    const img = document.createElement('img');
-    img.src =
-      medico.img && medico.img.trim() !== ''
-        ? medico.img
-        : 'img/profesionales/random.jpg';
-    img.alt = medico.nombre_completo;
-    img.style.width = '50px';
-    img.style.height = '50px';
-    img.style.objectFit = 'cover';
-    img.style.borderRadius = '5px';
-    celdaImagen.appendChild(img);
-
-    const celdaAcciones = fila.insertCell();
-
-    const btnModificar = document.createElement('button');
-    btnModificar.textContent = 'Modificar';
-    btnModificar.className = 'btn btn-sm btn-warning me-2';
-    btnModificar.onclick = () => cargarMedicoParaEdicion(medico.id);
-    celdaAcciones.appendChild(btnModificar);
-
-    const btnEliminar = document.createElement('button');
-    btnEliminar.textContent = 'Eliminar';
-    btnEliminar.className = 'btn btn-sm btn-danger';
-    btnEliminar.onclick = () => eliminarMedico(medico.id);
-    celdaAcciones.appendChild(btnEliminar);
-  });
-}
-
-///Alta medicos
 function altaMedicos(event) {
   event.preventDefault();
 
   let nombre_completo = inputNombre.value.trim();
-  let especialidad = inputEspecialidad.value.trim();
-  let obra_social = inputObraSocial.value.trim();
+  let especialidad_id = parseInt(inputEspecialidad.value);
+  let obras_sociales = obtenerObrasSeleccionadas();
   let telefono = inputTelefono.value.trim();
   let email = inputEmail.value.trim();
+  let descripcion = inputDescripcion.value.trim();
+  let valor_consulta = inputValorConsulta.value
+    ? parseFloat(inputValorConsulta.value)
+    : null;
   let img = imagenBase64 || '';
 
-  if (!nombre_completo || !especialidad || !obra_social) {
-    alert('Complete los campos requeridos (Nombre, Especialidad, Obra Social)');
+  if (!nombre_completo || !especialidad_id) {
+    alert('Complete los campos requeridos (Nombre y Especialidad)');
     return;
   }
 
   const datosMedico = {
     nombre_completo,
-    especialidad,
-    obra_social,
+    especialidad_id,
+    obras_sociales,
     telefono,
     email,
+    descripcion,
+    valor_consulta,
     img,
   };
 
@@ -117,7 +69,6 @@ function altaMedicos(event) {
       guardarYRenderizar();
       restablecerFormulario();
     }
-    restablecerFormulario();
   } else {
     const nuevoMedico = { id: nextId++, ...datosMedico };
     medicos.push(nuevoMedico);
@@ -128,15 +79,24 @@ function altaMedicos(event) {
   }
 }
 
-///Cargar medicos para edicion
 function cargarMedicoParaEdicion(id) {
   const medico = medicos.find((m) => m.id === id);
   if (medico) {
     inputNombre.value = medico.nombre_completo;
-    inputEspecialidad.value = medico.especialidad;
-    inputObraSocial.value = medico.obra_social;
+    inputEspecialidad.value = medico.especialidad_id;
     inputTelefono.value = medico.telefono;
     inputEmail.value = medico.email;
+    inputDescripcion.value = medico.descripcion || '';
+    inputValorConsulta.value = medico.valor_consulta || '';
+
+    const checkboxes = document.querySelectorAll(
+      '#obrasSocialesContainer input'
+    );
+    checkboxes.forEach((checkbox) => {
+      checkbox.checked = Array.isArray(medico.obras_sociales)
+        ? medico.obras_sociales.includes(parseInt(checkbox.value))
+        : false;
+    });
 
     medicoIdInput.value = medico.id;
     modoEdicion = true;
@@ -153,9 +113,11 @@ function restablecerFormulario() {
   cancelarBtn.style.display = 'none';
   imagenBase64 = '';
   preview.style.display = 'none';
+
+  const checkboxes = document.querySelectorAll('#obrasSocialesContainer input');
+  checkboxes.forEach((checkbox) => (checkbox.checked = false));
 }
 
-//Eliminar
 function eliminarMedico(id) {
   if (
     confirm(`¿Estás seguro de que quieres eliminar al médico con ID ${id}?`)
@@ -173,10 +135,14 @@ function eliminarMedico(id) {
 
 function guardarYRenderizar() {
   localStorage.setItem('medicos', JSON.stringify(medicos));
-  renderizarMedicos();
+  renderizarMedicos(
+    tablaBody,
+    medicos,
+    cargarMedicoParaEdicion,
+    eliminarMedico
+  );
 }
 
-//asignacion de inputs
 document.addEventListener('DOMContentLoaded', function () {
   formAltaMedico = document.getElementById('altaMedicoForm');
   tablaBody = document.querySelector('#tablaMedicos tbody');
@@ -186,12 +152,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
   inputNombre = document.getElementById('nombre_completo');
   inputEspecialidad = document.getElementById('especialidad');
-  inputObraSocial = document.getElementById('obra_social');
   inputTelefono = document.getElementById('telefono');
   inputEmail = document.getElementById('email');
+  inputDescripcion = document.getElementById('descripcion');
+  inputValorConsulta = document.getElementById('valorConsulta');
 
   if (formAltaMedico) formAltaMedico.addEventListener('submit', altaMedicos);
   if (cancelarBtn) cancelarBtn.addEventListener('click', restablecerFormulario);
 
-  renderizarMedicos();
+  inicializarInputImagen();
+  generarSelectEspecialidades();
+  generarObrasSociales();
+
+  renderizarMedicos(
+    tablaBody,
+    medicos,
+    cargarMedicoParaEdicion,
+    eliminarMedico
+  );
 });
+
+window.cargarMedicoParaEdicion = cargarMedicoParaEdicion;
+window.eliminarMedico = eliminarMedico;

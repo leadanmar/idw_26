@@ -1,3 +1,5 @@
+import { login } from './auth.js';
+import { users } from './usuarios.js';
 const formLogin = document.getElementById('formLogin');
 const usuario = document.getElementById('username');
 const clave = document.getElementById('password');
@@ -19,32 +21,31 @@ visible.addEventListener('change', function () {
   }
 });
 
-formLogin.addEventListener('submit', function (event) {
+formLogin.addEventListener('submit', async function (event) {
   event.preventDefault();
 
   let usuarioInput = usuario.value.trim();
   let claveInput = clave.value.trim();
+  const isUsuario = await login(usuarioInput, claveInput);
+  console.log(isUsuario);
 
-  const isUsuario = usuarios.find(
-    (u) => u.usuario === usuarioInput && u.clave === claveInput
-  );
+  const usuarios = await users();
 
   const isAdmin = usuarios.find(
-    (u) =>
-      u.usuario === usuarioInput &&
-      u.clave === claveInput &&
-      u.permiso === 'admin'
+    (u) => u.username === usuarioInput && u.role === 'admin'
   );
-  console.log(isAdmin);
 
-  if (isAdmin) {
-    sessionStorage.setItem('usuarioLogueado', usuarioInput);
-    sessionStorage.setItem('permiso', 'admin');
-    window.location.href = 'index.html';
-  } else if (isUsuario) {
-    sessionStorage.setItem('usuarioLogueado', usuarioInput);
-    sessionStorage.setItem('permiso', 'user');
-    window.location.href = 'index.html';
+  if (isUsuario) {
+    sessionStorage.setItem('usuarioLogueado', isUsuario.username);
+    sessionStorage.setItem('token', isUsuario.accessToken);
+    if (isAdmin) {
+      sessionStorage.setItem('permiso', 'admin');
+    } else {
+      sessionStorage.setItem('permiso', 'user');
+    }
+    setTimeout(() => {
+      window.location.href = 'index.html';
+    }, 100);
   } else {
     mostrarMensaje('Error en credenciales', 'danger');
   }
