@@ -3,16 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Profesionales - IDW S.A.</title>
+    <title>Medicos</title>
 
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-
-    <link rel="stylesheet" href="css/index.css" />
     <link rel="stylesheet" href="css/global.css" />
-    <link rel="stylesheet" href="css/profesionales.css" />
+    <link rel="stylesheet" href="css/reservar_turno.css" />
   </head>
   <body>
     <header>
@@ -92,81 +90,29 @@
       </nav>
     </header>
 
-    <!-- Contenido principal -->
-    <div class="container-principal container mt-5">
-      <h1 class="text-center mb-4">Catálogo de Profesionales</h1>
+    <main class="container">
+      <section>
+        <h2 class="mb-5 mt-5">Administrador de Usuarios</h2>
+      </section>
+      <hr class="mt-5 mb-4" />
+      <section>
+        <div class="table-responsive">
+          <table class="table table-striped table-hover" id="tablaUsuarios">
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
 
-      <!-- Pestañas por especialidad -->
-      <ul class="nav nav-tabs mb-4" id="profesionesTabs" role="tablist">
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link active"
-            id="all-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#all"
-            type="button"
-            role="tab"
-          >
-            Todos
-          </button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link"
-            id="cardio-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#cardio"
-            type="button"
-            role="tab"
-          >
-            Cardiólogos
-          </button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link"
-            id="pedia-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#pedia"
-            type="button"
-            role="tab"
-          >
-            Pediatras
-          </button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link"
-            id="derma-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#derma"
-            type="button"
-            role="tab"
-          >
-            Dermatólogos
-          </button>
-        </li>
-      </ul>
+      <input type="hidden" id="medicoId" value="" />
+    </main>
 
-      <div class="tab-content">
-        <div class="row g-4" id="contenedorCards"></div>
-      </div>
-
-      <!-- Boton Reservar Turno -->
-      <div class="text-center mt-3">
-        <a href="reservar_turno.html" class="boton-reservar">Reservar Turno</a>
-      </div>
-    </div>
-
-    <!-- Footer -->
     <footer class="footer">
-      <div>
-        <p>© 2025 Consultorio Médico IDW - Todos los derechos reservados</p>
-      </div>
+      <p>© 2025 Consultorio Médico IDW - Todos los derechos reservados</p>
     </footer>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts/admin.js" type="module"></script>
     <script src="scripts/auth.js" type="module"></script>
-    <script src="scripts/medicosCard.js" type="module"></script>
+    <script src="scripts/administrador.js" type="module"></script>
+    <script src="scripts/usuarios.js" type="module"></script>
   </body>
 </html>
