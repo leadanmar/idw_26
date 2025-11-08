@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const elementosAdmin = document.querySelectorAll('.solo-admin');
   const elementosPublicos = document.querySelectorAll('.solo-publico');
 
-  console.log(usuarioPermiso);
   if (usuarioLogueado) {
     elementosPrivados.forEach((el) => (el.style.display = 'block'));
     elementosPublicos.forEach((el) => (el.style.display = 'none'));
