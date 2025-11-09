@@ -2,7 +2,6 @@ import { obrasSocialesIniciales } from '../config/obrasSociales.js';
 import { especialidadesIniciales } from '../config/especialidades.js';
 import { medicosIniciales } from '../config/medicos.js';
 
-// Inicializar datos en localStorage
 if (!localStorage.getItem('especialidades')) {
   localStorage.setItem(
     'especialidades',
@@ -27,7 +26,6 @@ let especialidades = JSON.parse(localStorage.getItem('especialidades')) || [];
 let medicos = JSON.parse(localStorage.getItem('medicos')) || [];
 let reservas = JSON.parse(localStorage.getItem('reservas')) || [];
 
-// Calcular valor de la consulta (maneja opción "ninguna")
 function mostrarResumenReserva(datos) {
   const medico = medicos.find((m) => m.id === parseInt(datos.medicoId));
   const especialidad = especialidades.find(
@@ -38,7 +36,6 @@ function mostrarResumenReserva(datos) {
       ? { nombre: 'Ninguna' }
       : obrasSociales.find((os) => os.id === parseInt(datos.obraSocialId));
 
-  // Cálculo directo del precio
   const precioBase = medico.precioBase || 5000;
   const descuento =
     datos.obraSocialId === 'ninguna' ? 0 : obraSocial.descuentoConsulta || 0;
@@ -79,7 +76,6 @@ function mostrarResumenReserva(datos) {
     .scrollIntoView({ behavior: 'smooth' });
 }
 
-// Guardar reserva en localStorage
 function guardarReserva(datos) {
   const medico = medicos.find((m) => m.id === parseInt(datos.medicoId));
   const obraSocial =
@@ -122,7 +118,6 @@ function guardarReserva(datos) {
   return nuevaReserva;
 }
 
-// Configurar el evento del formulario
 function configurarFormulario() {
   const formulario = document.getElementById('reservaTurnoForm');
   const btnConfirmar = document.getElementById('confirmarReserva');
@@ -145,7 +140,6 @@ function configurarFormulario() {
     mostrarResumenReserva(datos);
   });
 
-  // Confirmar reserva
   btnConfirmar.addEventListener('click', function () {
     const datos = {
       documento: document.getElementById('documento').value.trim(),
@@ -162,14 +156,12 @@ function configurarFormulario() {
       `✅ Turno reservado exitosamente!\n\nCódigo de reserva: ${reservaGuardada.id}\nValor: $${reservaGuardada.valorConsulta}`
     );
 
-    // Limpiar formulario
     formulario.reset();
     document.getElementById('resumenReserva').style.display = 'none';
     document.querySelector('button[type="submit"]').style.display =
       'inline-block';
   });
 
-  // Cancelar reserva
   btnCancelar.addEventListener('click', function () {
     formulario.reset();
     document.getElementById('resumenReserva').style.display = 'none';
@@ -178,10 +170,8 @@ function configurarFormulario() {
   });
 }
 
-// Inicializar todo cuando cargue la página
 function init() {
   configurarFormulario();
 }
 
-// Ejecutar cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', init);
