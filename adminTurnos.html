@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Reservar Turno - IDW S.A.</title>
+    <title>Medicos</title>
 
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
@@ -91,118 +91,115 @@
     </header>
 
     <main class="container my-5">
-      <div class="form-container">
-        <h2 class="text-center mb-4">Reservar Turno Médico</h2>
+      <h2 class="text-center mb-4">Administración de Reservas</h2>
 
-        <form id="reservaTurnoForm">
-          <!-- Datos del Paciente -->
-          <div class="card mb-4">
-            <div
-              class="card-header text-white"
-              style="background-color: #1f776c"
-            >
-              <h5 class="mb-0">Datos del Paciente</h5>
+      <!-- Filtros -->
+      <div class="card mb-4">
+        <div class="card-header text-white" style="background-color: #1f776c">
+          <h5 class="mb-0">Filtros</h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <label for="filtroMedico" class="form-label">Médico</label>
+              <select class="form-select" id="filtroMedico">
+                <option value="">Todos los médicos</option>
+              </select>
             </div>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="documento" class="form-label required-field"
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabla de Reservas -->
+      <div class="card">
+        <div class="card-header text-white" style="background-color: #1f776c">
+          <h5 class="mb-0">Reservas de Pacientes</h5>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped" id="tablaReservas">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Paciente</th>
+                  <th>Documento</th>
+                  <th>Médico</th>
+                  <th>Especialidad</th>
+                  <th>Fecha</th>
+                  <th>Hora</th>
+                  <th>Valor</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Las reservas se cargarán aquí -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal para editar reserva -->
+      <div class="modal fade" id="modalEditarReserva" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Editar Reserva</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form id="formEditarReserva">
+                <input type="hidden" id="reservaId" />
+                <div class="mb-3">
+                  <label for="editarDocumento" class="form-label"
                     >Documento</label
                   >
                   <input
                     type="text"
                     class="form-control"
-                    id="documento"
+                    id="editarDocumento"
                     required
-                    placeholder="Ej: 12345678 o AB123456"
                   />
                 </div>
-                <div class="col-md-6 mb-3">
-                  <label for="apellidoNombre" class="form-label required-field"
+                <div class="mb-3">
+                  <label for="editarPaciente" class="form-label"
                     >Apellido y Nombre</label
                   >
                   <input
                     type="text"
                     class="form-control"
-                    id="apellidoNombre"
+                    id="editarPaciente"
                     required
-                    placeholder="Ej: González, María"
                   />
                 </div>
-              </div>
-
-              <div class="mb-3">
-                <label for="obraSocial" class="form-label required-field"
-                  >Obra Social</label
-                >
-                <select class="form-select" id="obraSocial" required>
-                  <option value="">Seleccione una obra social</option>
-                  <!-- Las obras sociales se cargarán dinámicamente -->
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <!-- Selección de Especialidad y Médico -->
-          <div class="card mb-4">
-            <div
-              class="card-header text-white"
-              style="background-color: #1f776c"
-            >
-              <h5 class="mb-0">Selección de Profesional</h5>
-            </div>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="especialidad" class="form-label"
-                    >Especialidad</label
-                  >
-                  <select class="form-select" id="especialidad">
-                    <option value="">Todas las especialidades</option>
-                    <!-- Las especialidades se cargarán dinámicamente -->
-                  </select>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="medico" class="form-label required-field"
+                <div class="mb-3">
+                  <label for="editarMedicoReserva" class="form-label"
                     >Médico</label
                   >
-                  <select class="form-select" id="medico" required>
-                    <option value="">Seleccione un médico</option>
-                    <!-- Los médicos se cargarán dinámicamente -->
+                  <select class="form-select" id="editarMedicoReserva" required>
+                    <option value="">Seleccione médico</option>
                   </select>
                 </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Selección de Fecha y Hora -->
-          <div class="card mb-4">
-            <div
-              class="card-header text-white"
-              style="background-color: #1f776c"
-            >
-              <h5 class="mb-0">Selección de Fecha y Hora</h5>
-            </div>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="fecha" class="form-label required-field"
+                <div class="mb-3">
+                  <label for="editarFechaReserva" class="form-label"
                     >Fecha</label
                   >
                   <input
                     type="date"
                     class="form-control"
-                    id="fecha"
+                    id="editarFechaReserva"
                     required
-                    min="<?php echo date('Y-m-d'); ?>"
                   />
                 </div>
-                <div class="col-md-6 mb-3">
-                  <label for="hora" class="form-label required-field"
-                    >Hora</label
-                  >
-                  <select class="form-select" id="hora" required>
-                    <option value="">Seleccione una hora</option>
+                <div class="mb-3">
+                  <label for="editarHoraReserva" class="form-label">Hora</label>
+                  <select class="form-select" id="editarHoraReserva" required>
+                    <option value="">Seleccione hora</option>
                     <option value="08:00">08:00</option>
                     <option value="08:30">08:30</option>
                     <option value="09:00">09:00</option>
@@ -226,47 +223,46 @@
                     <option value="18:00">18:00</option>
                   </select>
                 </div>
-              </div>
+                <div class="mb-3 form-check">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="editarEstado"
+                  />
+                  <label class="form-check-label" for="editarEstado"
+                    >Reserva Activa</label
+                  >
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cancelar
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                id="btnGuardarReserva"
+              >
+                Guardar Cambios
+              </button>
             </div>
           </div>
-          <div id="resumenReserva" class="card mt-4" style="display: none;">
-            <div class="card-header text-white">
-              <h5 class="mb-0">Resumen de la Reserva</h5>
-            </div>
-            <div class="card-body">
-              <div id="detallesReserva"></div>
-              <div class="text-center mt-3">
-                <button id="confirmarReserva" class="btn btn-success me-2">
-                  Aceptar Turno
-                </button>
-                <button id="cancelarReserva" class="btn btn-secondary">
-                  Cancelar
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Botón de Reserva -->
-          <div class="text-center">
-            <button
-              type="submit"
-              class="btn btn-success btn-lg"
-              style="background-color: #1f776c"
-            >
-              <i class="bi bi-calendar-check"></i> Reservar Turno
-            </button>
-          </div>
-        </form>
+        </div>
       </div>
     </main>
 
     <footer class="footer">
       <p>© 2025 Consultorio Médico IDW - Todos los derechos reservados</p>
     </footer>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts/admin.js" type="module"></script>
     <script src="scripts/auth.js" type="module"></script>
-    <script src="scripts/turnosForm.js" type="module"></script>
-    <script src="scripts/reserva.js" type="module"></script>
+    <script src="scripts/administrador.js" type="module"></script>
+    <script src="scripts/turnosAdmin.js" type="module"></script>
   </body>
 </html>

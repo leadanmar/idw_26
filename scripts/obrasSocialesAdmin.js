@@ -5,6 +5,7 @@ if (!localStorage.getItem('obrasSociales')) {
 }
 
 let obrasSociales = JSON.parse(localStorage.getItem('obrasSociales')) || [];
+
 function generarId() {
   return Math.floor(100000 + Math.random() * 900000);
 }
@@ -12,7 +13,7 @@ let nextId = generarId();
 let modoEdicion = false;
 
 let formObraSocial, tablaBody, obraSocialIdInput, submitBtn, cancelarBtn;
-let inputNombre, inputDescripcion;
+let inputNombre, inputDescripcion, inputDescuentoConsulta;
 
 function guardarYRenderizar() {
   localStorage.setItem('obrasSociales', JSON.stringify(obrasSociales));
@@ -35,6 +36,7 @@ function renderizarObrasSociales() {
                   : obraSocial.descripcion
                 : ''
             }</td>
+            <td>${obraSocial.descuentoConsulta || 0}%</td>
             <td>
                 <button class="btn btn-sm btn-warning me-2 btn-modificar" data-id="${
                   obraSocial.id
@@ -62,7 +64,6 @@ function renderizarObrasSociales() {
     });
   });
 
-  // Event listeners para botones eliminar
   const botonesEliminar = tablaBody.querySelectorAll('.btn-eliminar');
   botonesEliminar.forEach((boton) => {
     boton.addEventListener('click', function () {
@@ -78,6 +79,9 @@ function altaObraSocial(event) {
   const datosObraSocial = {
     nombre: inputNombre.value.trim(),
     descripcion: inputDescripcion.value.trim(),
+    descuentoConsulta: inputDescuentoConsulta.value
+      ? parseFloat(inputDescuentoConsulta.value)
+      : 0,
   };
 
   if (!datosObraSocial.nombre) {
@@ -90,13 +94,19 @@ function altaObraSocial(event) {
     const indice = obrasSociales.findIndex((o) => o.id === idAActualizar);
 
     if (indice !== -1) {
-      obrasSociales[indice] = { id: idAActualizar, ...datosObraSocial };
+      obrasSociales[indice] = {
+        id: idAActualizar,
+        ...datosObraSocial,
+      };
       alert(`Obra Social ID ${idAActualizar} modificada.`);
       guardarYRenderizar();
       restablecerFormulario();
     }
   } else {
-    const nuevaObraSocial = { id: generarId(), ...datosObraSocial };
+    const nuevaObraSocial = {
+      id: generarId(),
+      ...datosObraSocial,
+    };
     obrasSociales.push(nuevaObraSocial);
     alert(`Obra Social ${datosObraSocial.nombre} registrada.`);
     guardarYRenderizar();
@@ -109,6 +119,7 @@ function cargarObraSocialParaEdicion(id) {
   if (obraSocial) {
     inputNombre.value = obraSocial.nombre;
     inputDescripcion.value = obraSocial.descripcion || '';
+    inputDescuentoConsulta.value = obraSocial.descuentoConsulta || 0;
 
     obraSocialIdInput.value = obraSocial.id;
     modoEdicion = true;
@@ -151,6 +162,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   inputNombre = document.getElementById('nombre');
   inputDescripcion = document.getElementById('descripcion');
+  inputDescuentoConsulta = document.getElementById('descuentoConsulta');
 
   if (formObraSocial) formObraSocial.addEventListener('submit', altaObraSocial);
   if (cancelarBtn) cancelarBtn.addEventListener('click', restablecerFormulario);
