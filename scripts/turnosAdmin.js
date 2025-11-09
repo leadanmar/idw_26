@@ -16,7 +16,6 @@ let medicos = JSON.parse(localStorage.getItem('medicos')) || [];
 let especialidades = JSON.parse(localStorage.getItem('especialidades')) || [];
 let reservas = JSON.parse(localStorage.getItem('reservas')) || [];
 
-// Cargar médicos en los selects
 function cargarMedicos() {
   const selectFiltro = document.getElementById('filtroMedico');
   const selectModal = document.getElementById('editarMedicoReserva');
@@ -25,13 +24,11 @@ function cargarMedicos() {
   selectModal.innerHTML = '<option value="">Seleccione médico</option>';
 
   medicos.forEach((medico) => {
-    // Para filtro
     const optionFiltro = document.createElement('option');
     optionFiltro.value = medico.id;
     optionFiltro.textContent = medico.nombre_completo;
     selectFiltro.appendChild(optionFiltro);
 
-    // Para modal
     const optionModal = document.createElement('option');
     optionModal.value = medico.id;
     optionModal.textContent = medico.nombre_completo;
@@ -39,7 +36,6 @@ function cargarMedicos() {
   });
 }
 
-// Cargar reservas en la tabla (con filtro opcional)
 function cargarReservas(filtroMedicoId = '') {
   const tbody = document.querySelector('#tablaReservas tbody');
   tbody.innerHTML = '';
@@ -90,7 +86,6 @@ function cargarReservas(filtroMedicoId = '') {
     tbody.appendChild(fila);
   });
 
-  // Agregar event listeners
   document.querySelectorAll('.btn-editar').forEach((btn) => {
     btn.addEventListener('click', (e) => {
       const reservaId = e.target.getAttribute('data-id');
@@ -106,7 +101,6 @@ function cargarReservas(filtroMedicoId = '') {
   });
 }
 
-// Editar reserva
 function editarReserva(reservaId) {
   const reserva = reservas.find((r) => r.id === parseInt(reservaId));
   if (!reserva) return;
@@ -125,7 +119,6 @@ function editarReserva(reservaId) {
   modal.show();
 }
 
-// Cambiar estado de la reserva (activar/cancelar)
 function cambiarEstadoReserva(reservaId) {
   const reservaIndex = reservas.findIndex((r) => r.id === parseInt(reservaId));
   if (reservaIndex === -1) return;
@@ -141,7 +134,6 @@ function cambiarEstadoReserva(reservaId) {
   }
 }
 
-// Guardar cambios de la reserva
 function guardarCambiosReserva() {
   const reservaId = parseInt(document.getElementById('reservaId').value);
   const documento = document.getElementById('editarDocumento').value;
@@ -155,7 +147,6 @@ function guardarCambiosReserva() {
 
   const reservaIndex = reservas.findIndex((r) => r.id === reservaId);
   if (reservaIndex !== -1) {
-    // Actualizar reserva
     reservas[reservaIndex] = {
       ...reservas[reservaIndex],
       documento: documento,
@@ -170,7 +161,6 @@ function guardarCambiosReserva() {
 
     localStorage.setItem('reservas', JSON.stringify(reservas));
 
-    // Recargar tabla con el filtro actual
     const filtroActual = document.getElementById('filtroMedico').value;
     cargarReservas(filtroActual);
 
@@ -183,17 +173,14 @@ function guardarCambiosReserva() {
   }
 }
 
-// Inicializar
 function init() {
   cargarMedicos();
   cargarReservas();
 
-  // Event listener para filtro
   document.getElementById('filtroMedico').addEventListener('change', (e) => {
     cargarReservas(e.target.value);
   });
 
-  // Event listener para guardar cambios
   document
     .getElementById('btnGuardarReserva')
     .addEventListener('click', guardarCambiosReserva);
