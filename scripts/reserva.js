@@ -1,30 +1,30 @@
-import { obrasSocialesIniciales } from '../config/obrasSociales.js';
-import { especialidadesIniciales } from '../config/especialidades.js';
-import { medicosIniciales } from '../config/medicos.js';
+import { obrasSocialesIniciales } from "../config/obrasSociales.js";
+import { especialidadesIniciales } from "../config/especialidades.js";
+import { medicosIniciales } from "../config/medicos.js";
 
-if (!localStorage.getItem('especialidades')) {
+if (!localStorage.getItem("especialidades")) {
   localStorage.setItem(
-    'especialidades',
+    "especialidades",
     JSON.stringify(especialidadesIniciales)
   );
 }
 
-if (!localStorage.getItem('obrasSociales')) {
-  localStorage.setItem('obrasSociales', JSON.stringify(obrasSocialesIniciales));
+if (!localStorage.getItem("obrasSociales")) {
+  localStorage.setItem("obrasSociales", JSON.stringify(obrasSocialesIniciales));
 }
 
-if (!localStorage.getItem('medicos')) {
-  localStorage.setItem('medicos', JSON.stringify(medicosIniciales));
+if (!localStorage.getItem("medicos")) {
+  localStorage.setItem("medicos", JSON.stringify(medicosIniciales));
 }
 
-if (!localStorage.getItem('reservas')) {
-  localStorage.setItem('reservas', JSON.stringify([]));
+if (!localStorage.getItem("reservas")) {
+  localStorage.setItem("reservas", JSON.stringify([]));
 }
 
-let obrasSociales = JSON.parse(localStorage.getItem('obrasSociales')) || [];
-let especialidades = JSON.parse(localStorage.getItem('especialidades')) || [];
-let medicos = JSON.parse(localStorage.getItem('medicos')) || [];
-let reservas = JSON.parse(localStorage.getItem('reservas')) || [];
+let obrasSociales = JSON.parse(localStorage.getItem("obrasSociales")) || [];
+let especialidades = JSON.parse(localStorage.getItem("especialidades")) || [];
+let medicos = JSON.parse(localStorage.getItem("medicos")) || [];
+let reservas = JSON.parse(localStorage.getItem("reservas")) || [];
 
 function mostrarResumenReserva(datos) {
   const medico = medicos.find((m) => m.id === parseInt(datos.medicoId));
@@ -32,16 +32,16 @@ function mostrarResumenReserva(datos) {
     (e) => e.id === medico.especialidad_id
   );
   const obraSocial =
-    datos.obraSocialId === 'ninguna'
-      ? { nombre: 'Ninguna' }
+    datos.obraSocialId === "ninguna"
+      ? { nombre: "Ninguna" }
       : obrasSociales.find((os) => os.id === parseInt(datos.obraSocialId));
 
   const precioBase = medico.precioBase || 5000;
   const descuento =
-    datos.obraSocialId === 'ninguna' ? 0 : obraSocial.descuentoConsulta || 0;
+    datos.obraSocialId === "ninguna" ? 0 : obraSocial.descuentoConsulta || 0;
   const valorFinal = Math.round(precioBase * (1 - descuento / 100));
 
-  document.getElementById('detallesReserva').innerHTML = `
+  document.getElementById("detallesReserva").innerHTML = `
     <div class="row">
       <div class="col-md-6">
         <h6>Datos del Paciente:</h6>
@@ -53,7 +53,7 @@ function mostrarResumenReserva(datos) {
         <h6>Detalles del Turno:</h6>
         <p><strong>Médico:</strong> ${medico.nombre_completo}</p>
         <p><strong>Especialidad:</strong> ${
-          especialidad.nombre || 'Ninguna'
+          especialidad.nombre || "Ninguna"
         }</p>
         <p><strong>Fecha:</strong> ${datos.fecha}</p>
         <p><strong>Hora:</strong> ${datos.hora}</p>
@@ -61,7 +61,7 @@ function mostrarResumenReserva(datos) {
     </div>
     <hr>
     <div class="alert ${
-      datos.obraSocialId === 'ninguna' ? 'alert-warning' : 'alert-success'
+      datos.obraSocialId === "ninguna" ? "alert-warning" : "alert-success"
     }">
       <h6>Valor de la Consulta:</h6>
       <p><strong>Precio Base:</strong> $${precioBase}</p>
@@ -70,27 +70,28 @@ function mostrarResumenReserva(datos) {
     </div>
   `;
 
-  document.getElementById('resumenReserva').style.display = 'block';
+  document.getElementById("resumenReserva").style.display = "block";
   document
-    .getElementById('resumenReserva')
-    .scrollIntoView({ behavior: 'smooth' });
+    .getElementById("resumenReserva")
+    .scrollIntoView({ behavior: "smooth" });
 }
 
 function guardarReserva(datos) {
+  const usuarioLogueado = sessionStorage.getItem("usuarioLogueado");
   const medico = medicos.find((m) => m.id === parseInt(datos.medicoId));
   const obraSocial =
-    datos.obraSocialId === 'ninguna'
-      ? { nombre: 'Ninguna' }
+    datos.obraSocialId === "ninguna"
+      ? { nombre: "Ninguna" }
       : obrasSociales.find((os) => os.id === parseInt(datos.obraSocialId));
   const precioBase = medico.precioBase || 5000;
 
   const descuento =
-    datos.obraSocialId === 'ninguna' ? 0 : obraSocial.descuentoConsulta || 0;
+    datos.obraSocialId === "ninguna" ? 0 : obraSocial.descuentoConsulta || 0;
   const valorFinal = Math.round(precioBase * (1 - descuento / 100));
 
   let obraSocialId = null;
 
-  if (datos.obraSocialId !== 'ninguna') {
+  if (datos.obraSocialId !== "ninguna") {
     const obraSocial = obrasSociales.find(
       (os) => os.id === parseInt(datos.obraSocialId)
     );
@@ -110,44 +111,45 @@ function guardarReserva(datos) {
     valorConsulta: valorFinal,
     fechaReserva: new Date().toISOString(),
     estado: true,
+    usuario: usuarioLogueado || null,
   };
 
   reservas.push(nuevaReserva);
-  localStorage.setItem('reservas', JSON.stringify(reservas));
+  localStorage.setItem("reservas", JSON.stringify(reservas));
 
   return nuevaReserva;
 }
 
 function configurarFormulario() {
-  const formulario = document.getElementById('reservaTurnoForm');
-  const btnConfirmar = document.getElementById('confirmarReserva');
-  const btnCancelar = document.getElementById('cancelarReserva');
+  const formulario = document.getElementById("reservaTurnoForm");
+  const btnConfirmar = document.getElementById("confirmarReserva");
+  const btnCancelar = document.getElementById("cancelarReserva");
 
-  formulario.addEventListener('submit', function (event) {
+  formulario.addEventListener("submit", function (event) {
     event.preventDefault();
 
     const datos = {
-      documento: document.getElementById('documento').value.trim(),
-      apellidoNombre: document.getElementById('apellidoNombre').value.trim(),
-      obraSocialId: document.getElementById('obraSocial').value,
-      medicoId: document.getElementById('medico').value,
-      fecha: document.getElementById('fecha').value,
-      hora: document.getElementById('hora').value,
+      documento: document.getElementById("documento").value.trim(),
+      apellidoNombre: document.getElementById("apellidoNombre").value.trim(),
+      obraSocialId: document.getElementById("obraSocial").value,
+      medicoId: document.getElementById("medico").value,
+      fecha: document.getElementById("fecha").value,
+      hora: document.getElementById("hora").value,
     };
-    document.querySelector('button[type="submit"]').style.display = 'none';
+    document.querySelector('button[type="submit"]').style.display = "none";
     mostrarResumenReserva(datos);
 
     mostrarResumenReserva(datos);
   });
 
-  btnConfirmar.addEventListener('click', function () {
+  btnConfirmar.addEventListener("click", function () {
     const datos = {
-      documento: document.getElementById('documento').value.trim(),
-      apellidoNombre: document.getElementById('apellidoNombre').value.trim(),
-      obraSocialId: document.getElementById('obraSocial').value,
-      medicoId: document.getElementById('medico').value,
-      fecha: document.getElementById('fecha').value,
-      hora: document.getElementById('hora').value,
+      documento: document.getElementById("documento").value.trim(),
+      apellidoNombre: document.getElementById("apellidoNombre").value.trim(),
+      obraSocialId: document.getElementById("obraSocial").value,
+      medicoId: document.getElementById("medico").value,
+      fecha: document.getElementById("fecha").value,
+      hora: document.getElementById("hora").value,
     };
 
     const reservaGuardada = guardarReserva(datos);
@@ -157,16 +159,16 @@ function configurarFormulario() {
     );
 
     formulario.reset();
-    document.getElementById('resumenReserva').style.display = 'none';
+    document.getElementById("resumenReserva").style.display = "none";
     document.querySelector('button[type="submit"]').style.display =
-      'inline-block';
+      "inline-block";
   });
 
-  btnCancelar.addEventListener('click', function () {
+  btnCancelar.addEventListener("click", function () {
     formulario.reset();
-    document.getElementById('resumenReserva').style.display = 'none';
+    document.getElementById("resumenReserva").style.display = "none";
     document.querySelector('button[type="submit"]').style.display =
-      'inline-block';
+      "inline-block";
   });
 }
 
@@ -174,4 +176,4 @@ function init() {
   configurarFormulario();
 }
 
-document.addEventListener('DOMContentLoaded', init);
+document.addEventListener("DOMContentLoaded", init);

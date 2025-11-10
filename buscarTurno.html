@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buscar Turno - IDW S.A.</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/global.css" />
+  </head>
+  <body>
+    <header>
+      <nav
+        class="navbar navbar-expand-lg navbar-dark"
+        style="background-color: #1f776c"
+      >
+        <div class="container-fluid">
+          <h1 style="color: white; margin: 0">IDW S.A.</h1>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarText"
+            aria-controls="navbarText"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarText">
+            <ul
+              class="navbar-nav me-auto mb-2 mb-lg-0 flex-lg-row w-100 justify-content-center gap-3"
+            >
+              <li class="nav-item">
+                <a class="nav-link" href="index.html" style="color: white"
+                  >Inicio</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="reservar_turno.html"
+                  style="color: white"
+                  >Reservar turno</a
+                >
+              </li>
+              <li class="nav-item solo-admin">
+                <a
+                  class="nav-link"
+                  style="color: white"
+                  href="administrador.html"
+                  >Administracion</a
+                >
+              </li>
+            </ul>
+            <div id="welcomeUser"></div>
+            <span class="navbar-text"></span>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container my-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          <h2 class="text-center mb-4">Consultar Turnos por DNI</h2>
+
+          <div class="card mb-4">
+            <div class="card-body">
+              <form id="formBuscarTurno">
+                <div class="mb-3">
+                  <label for="dniInput" class="form-label fw-bold"
+                    >Ingrese su número de documento</label
+                  >
+                  <input
+                    type="number"
+                    min="0"
+                    class="form-control"
+                    id="dniInput"
+                    placeholder="Ej: 25123456"
+                    required
+                  />
+                </div>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  style="background-color: #1f776c; border-color: #1f776c"
+                >
+                  Buscar mis turnos
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <div class="card">
+            <div
+              class="card-header text-white"
+              style="background-color: #1f776c"
+            >
+              <h5 class="mb-0">Resultados</h5>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-striped" id="tablaResultadosBusqueda">
+                  <thead>
+                    <tr>
+                      <th>Médico</th>
+                      <th>Especialidad</th>
+                      <th>Fecha</th>
+                      <th>Hora</th>
+                      <th>Estado</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td colspan="5" class="text-center text-muted">
+                        Ingrese su DNI para ver sus turnos.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>© 2025 Consultorio Médico IDW - Todos los derechos reservados</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts/auth.js" type="module"></script>
+    <script src="scripts/buscarTurno.js" type="module"></script>
+  </body>
+</html>
