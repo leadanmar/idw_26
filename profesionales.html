@@ -92,73 +92,24 @@
       </nav>
     </header>
 
-    <!-- Contenido principal -->
     <div class="container-principal container mt-5">
       <h1 class="text-center mb-4">Catálogo de Profesionales</h1>
-
-      <!-- Pestañas por especialidad -->
-      <ul class="nav nav-tabs mb-4" id="profesionesTabs" role="tablist">
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link active"
-            id="all-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#all"
-            type="button"
-            role="tab"
-          >
-            Todos
-          </button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link"
-            id="cardio-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#cardio"
-            type="button"
-            role="tab"
-          >
-            Cardiólogos
-          </button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link"
-            id="pedia-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#pedia"
-            type="button"
-            role="tab"
-          >
-            Pediatras
-          </button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link"
-            id="derma-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#derma"
-            type="button"
-            role="tab"
-          >
-            Dermatólogos
-          </button>
-        </li>
-      </ul>
+      <div class="row mb-4 justify-content-center">
+        <div class="col-md-6 col-lg-4">
+          <select class="form-select" id="filtroEspecialidad">
+            <option value="">Todas las especialidades</option>
+          </select>
+        </div>
+      </div>
 
       <div class="tab-content">
         <div class="row g-4" id="contenedorCards"></div>
       </div>
 
-      <!-- Boton Reservar Turno -->
-      <div class="text-center mt-3">
+      <div class="text-center mt-3 mb-3">
         <a href="reservar_turno.html" class="boton-reservar">Reservar Turno</a>
       </div>
     </div>
-
-    <!-- Footer -->
     <footer class="footer">
       <div>
         <p>© 2025 Consultorio Médico IDW - Todos los derechos reservados</p>
