@@ -5,22 +5,18 @@ if (!localStorage.getItem('obrasSociales')) {
 }
 
 let obrasSociales = JSON.parse(localStorage.getItem('obrasSociales')) || [];
+let modoEdicion = false;
 
 function generarId() {
   return Math.floor(100000 + Math.random() * 900000);
 }
-let nextId = generarId();
-let modoEdicion = false;
 
-let formObraSocial, tablaBody, obraSocialIdInput, submitBtn, cancelarBtn;
-let inputNombre, inputDescripcion, inputDescuentoConsulta;
-
-function guardarYRenderizar() {
+function guardarEnLocalStorage() {
   localStorage.setItem('obrasSociales', JSON.stringify(obrasSociales));
-  renderizarObrasSociales();
 }
 
 function renderizarObrasSociales() {
+  const tablaBody = document.querySelector('#tablaObrasSociales tbody');
   if (!tablaBody) return;
 
   const filasHTML = obrasSociales
@@ -56,16 +52,14 @@ function renderizarObrasSociales() {
 
   tablaBody.innerHTML = filasHTML;
 
-  const botonesModificar = tablaBody.querySelectorAll('.btn-modificar');
-  botonesModificar.forEach((boton) => {
+  document.querySelectorAll('.btn-modificar').forEach((boton) => {
     boton.addEventListener('click', function () {
       const id = parseInt(this.getAttribute('data-id'));
       cargarObraSocialParaEdicion(id);
     });
   });
 
-  const botonesEliminar = tablaBody.querySelectorAll('.btn-eliminar');
-  botonesEliminar.forEach((boton) => {
+  document.querySelectorAll('.btn-eliminar').forEach((boton) => {
     boton.addEventListener('click', function () {
       const id = parseInt(this.getAttribute('data-id'));
       eliminarObraSocial(id);
@@ -75,6 +69,12 @@ function renderizarObrasSociales() {
 
 function altaObraSocial(event) {
   event.preventDefault();
+
+  const formObraSocial = document.getElementById('altaObraSocialForm');
+  const inputNombre = document.getElementById('nombre');
+  const inputDescripcion = document.getElementById('descripcion');
+  const inputDescuentoConsulta = document.getElementById('descuentoConsulta');
+  const obraSocialIdInput = document.getElementById('obraSocialId');
 
   const datosObraSocial = {
     nombre: inputNombre.value.trim(),
@@ -99,7 +99,8 @@ function altaObraSocial(event) {
         ...datosObraSocial,
       };
       alert(`Obra Social ID ${idAActualizar} modificada.`);
-      guardarYRenderizar();
+      guardarEnLocalStorage();
+      renderizarObrasSociales();
       restablecerFormulario();
     }
   } else {
@@ -109,7 +110,8 @@ function altaObraSocial(event) {
     };
     obrasSociales.push(nuevaObraSocial);
     alert(`Obra Social ${datosObraSocial.nombre} registrada.`);
-    guardarYRenderizar();
+    guardarEnLocalStorage();
+    renderizarObrasSociales();
     restablecerFormulario();
   }
 }
@@ -117,6 +119,13 @@ function altaObraSocial(event) {
 function cargarObraSocialParaEdicion(id) {
   const obraSocial = obrasSociales.find((o) => o.id === id);
   if (obraSocial) {
+    const inputNombre = document.getElementById('nombre');
+    const inputDescripcion = document.getElementById('descripcion');
+    const inputDescuentoConsulta = document.getElementById('descuentoConsulta');
+    const obraSocialIdInput = document.getElementById('obraSocialId');
+    const submitBtn = document.getElementById('submitBtn');
+    const cancelarBtn = document.getElementById('cancelarBtn');
+
     inputNombre.value = obraSocial.nombre;
     inputDescripcion.value = obraSocial.descripcion || '';
     inputDescuentoConsulta.value = obraSocial.descuentoConsulta || 0;
@@ -129,6 +138,11 @@ function cargarObraSocialParaEdicion(id) {
 }
 
 function restablecerFormulario() {
+  const formObraSocial = document.getElementById('altaObraSocialForm');
+  const obraSocialIdInput = document.getElementById('obraSocialId');
+  const submitBtn = document.getElementById('submitBtn');
+  const cancelarBtn = document.getElementById('cancelarBtn');
+
   formObraSocial.reset();
   obraSocialIdInput.value = '';
   modoEdicion = false;
@@ -145,27 +159,28 @@ function eliminarObraSocial(id) {
     obrasSociales = obrasSociales.filter((obraSocial) => obraSocial.id !== id);
     alert('Obra Social eliminada.');
 
+    const obraSocialIdInput = document.getElementById('obraSocialId');
     if (parseInt(obraSocialIdInput.value) === id) {
       restablecerFormulario();
     }
 
-    guardarYRenderizar();
+    guardarEnLocalStorage();
+    renderizarObrasSociales();
   }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-  formObraSocial = document.getElementById('altaObraSocialForm');
-  tablaBody = document.querySelector('#tablaObrasSociales tbody');
-  obraSocialIdInput = document.getElementById('obraSocialId');
-  submitBtn = document.getElementById('submitBtn');
-  cancelarBtn = document.getElementById('cancelarBtn');
+function init() {
+  const formObraSocial = document.getElementById('altaObraSocialForm');
+  const cancelarBtn = document.getElementById('cancelarBtn');
 
-  inputNombre = document.getElementById('nombre');
-  inputDescripcion = document.getElementById('descripcion');
-  inputDescuentoConsulta = document.getElementById('descuentoConsulta');
-
-  if (formObraSocial) formObraSocial.addEventListener('submit', altaObraSocial);
-  if (cancelarBtn) cancelarBtn.addEventListener('click', restablecerFormulario);
+  if (formObraSocial) {
+    formObraSocial.addEventListener('submit', altaObraSocial);
+  }
+  if (cancelarBtn) {
+    cancelarBtn.addEventListener('click', restablecerFormulario);
+  }
 
   renderizarObrasSociales();
-});
+}
+
+document.addEventListener('DOMContentLoaded', init);

@@ -6,8 +6,6 @@ if (!localStorage.getItem('obrasSociales')) {
   localStorage.setItem('obrasSociales', JSON.stringify(obrasSocialesIniciales));
 }
 
-let obrasSociales = JSON.parse(localStorage.getItem('obrasSociales')) || [];
-
 if (!localStorage.getItem('especialidades')) {
   localStorage.setItem(
     'especialidades',
@@ -15,15 +13,16 @@ if (!localStorage.getItem('especialidades')) {
   );
 }
 
-let especialidades = JSON.parse(localStorage.getItem('especialidades')) || [];
-
 if (!localStorage.getItem('medicos')) {
   localStorage.setItem('medicos', JSON.stringify(medicosIniciales));
 }
 
+let obrasSociales = JSON.parse(localStorage.getItem('obrasSociales')) || [];
+let especialidades = JSON.parse(localStorage.getItem('especialidades')) || [];
+let medicos = JSON.parse(localStorage.getItem('medicos'));
+
 const contenedor = document.getElementById('contenedorCards');
 const selectFiltro = document.getElementById('filtroEspecialidad');
-const medicos = JSON.parse(localStorage.getItem('medicos'));
 const imgRandom = 'img/profesionales/random.jpg';
 
 function obtenerNombreEspecialidad(id) {
