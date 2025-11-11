@@ -8,20 +8,18 @@ if (!localStorage.getItem('especialidades')) {
 }
 
 let especialidades = JSON.parse(localStorage.getItem('especialidades')) || [];
+let modoEdicion = false;
+
 function generarId() {
   return Math.floor(100000 + Math.random() * 900000);
 }
-let modoEdicion = false;
 
-let formEspecialidad, tablaBody, especialidadIdInput, submitBtn, cancelarBtn;
-let inputNombre;
-
-function guardarYRenderizar() {
+function guardarEnLocalStorage() {
   localStorage.setItem('especialidades', JSON.stringify(especialidades));
-  renderizarEspecialidades();
 }
 
 function renderizarEspecialidades() {
+  const tablaBody = document.querySelector('#tablaEspecialidades tbody');
   if (!tablaBody) return;
 
   const filasHTML = especialidades
@@ -45,16 +43,14 @@ function renderizarEspecialidades() {
 
   tablaBody.innerHTML = filasHTML;
 
-  const botonesModificar = tablaBody.querySelectorAll('.btn-modificar');
-  botonesModificar.forEach((boton) => {
+  document.querySelectorAll('.btn-modificar').forEach((boton) => {
     boton.addEventListener('click', function () {
       const id = parseInt(this.getAttribute('data-id'));
       cargarEspecialidadParaEdicion(id);
     });
   });
 
-  const botonesEliminar = tablaBody.querySelectorAll('.btn-eliminar');
-  botonesEliminar.forEach((boton) => {
+  document.querySelectorAll('.btn-eliminar').forEach((boton) => {
     boton.addEventListener('click', function () {
       const id = parseInt(this.getAttribute('data-id'));
       eliminarEspecialidad(id);
@@ -64,6 +60,9 @@ function renderizarEspecialidades() {
 
 function altaEspecialidad(event) {
   event.preventDefault();
+
+  const inputNombre = document.getElementById('nombre');
+  const especialidadIdInput = document.getElementById('especialidadId');
 
   const datosEspecialidad = {
     nombre: inputNombre.value.trim(),
@@ -81,14 +80,16 @@ function altaEspecialidad(event) {
     if (indice !== -1) {
       especialidades[indice] = { id: idAActualizar, ...datosEspecialidad };
       alert(`Especialidad ID ${idAActualizar} modificada.`);
-      guardarYRenderizar();
+      guardarEnLocalStorage();
+      renderizarEspecialidades();
       restablecerFormulario();
     }
   } else {
     const nuevaEspecialidad = { id: generarId(), ...datosEspecialidad };
     especialidades.push(nuevaEspecialidad);
     alert(`Especialidad ${datosEspecialidad.nombre} registrada.`);
-    guardarYRenderizar();
+    guardarEnLocalStorage();
+    renderizarEspecialidades();
     restablecerFormulario();
   }
 }
@@ -96,6 +97,11 @@ function altaEspecialidad(event) {
 function cargarEspecialidadParaEdicion(id) {
   const especialidad = especialidades.find((e) => e.id === id);
   if (especialidad) {
+    const inputNombre = document.getElementById('nombre');
+    const especialidadIdInput = document.getElementById('especialidadId');
+    const submitBtn = document.getElementById('submitBtn');
+    const cancelarBtn = document.getElementById('cancelarBtn');
+
     inputNombre.value = especialidad.nombre;
 
     especialidadIdInput.value = especialidad.id;
@@ -106,6 +112,11 @@ function cargarEspecialidadParaEdicion(id) {
 }
 
 function restablecerFormulario() {
+  const formEspecialidad = document.getElementById('altaEspecialidadForm');
+  const especialidadIdInput = document.getElementById('especialidadId');
+  const submitBtn = document.getElementById('submitBtn');
+  const cancelarBtn = document.getElementById('cancelarBtn');
+
   formEspecialidad.reset();
   especialidadIdInput.value = '';
   modoEdicion = false;
@@ -124,26 +135,28 @@ function eliminarEspecialidad(id) {
     );
     alert('Especialidad eliminada.');
 
+    const especialidadIdInput = document.getElementById('especialidadId');
     if (parseInt(especialidadIdInput.value) === id) {
       restablecerFormulario();
     }
 
-    guardarYRenderizar();
+    guardarEnLocalStorage();
+    renderizarEspecialidades();
   }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-  formEspecialidad = document.getElementById('altaEspecialidadForm');
-  tablaBody = document.querySelector('#tablaEspecialidades tbody');
-  especialidadIdInput = document.getElementById('especialidadId');
-  submitBtn = document.getElementById('submitBtn');
-  cancelarBtn = document.getElementById('cancelarBtn');
+function init() {
+  const formEspecialidad = document.getElementById('altaEspecialidadForm');
+  const cancelarBtn = document.getElementById('cancelarBtn');
 
-  inputNombre = document.getElementById('nombre');
-
-  if (formEspecialidad)
+  if (formEspecialidad) {
     formEspecialidad.addEventListener('submit', altaEspecialidad);
-  if (cancelarBtn) cancelarBtn.addEventListener('click', restablecerFormulario);
+  }
+  if (cancelarBtn) {
+    cancelarBtn.addEventListener('click', restablecerFormulario);
+  }
 
   renderizarEspecialidades();
-});
+}
+
+document.addEventListener('DOMContentLoaded', init);

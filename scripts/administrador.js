@@ -8,9 +8,6 @@ import {
 } from './formularioMedicos.js';
 import { renderizarMedicos } from './tablaMedicos.js';
 
-const inputImagen = document.getElementById('inputImagen');
-const preview = document.getElementById('preview');
-
 if (!localStorage.getItem('medicos')) {
   localStorage.setItem('medicos', JSON.stringify(medicosIniciales));
 }
@@ -19,18 +16,17 @@ let medicos = JSON.parse(localStorage.getItem('medicos')) || [];
 let nextId = medicos.length > 0 ? Math.max(...medicos.map((m) => m.id)) + 1 : 1;
 let modoEdicion = false;
 
-let formAltaMedico, tablaBody, medicoIdInput, submitBtn, cancelarBtn;
-let inputNombre,
-  inputEspecialidad,
-  inputTelefono,
-  inputEmail,
-  inputDescripcion,
-  inputValorConsulta;
-
-preview.style.display = 'none';
-
 function altaMedicos(event) {
   event.preventDefault();
+
+  const inputNombre = document.getElementById('nombre_completo');
+  const inputEspecialidad = document.getElementById('especialidad');
+  const inputTelefono = document.getElementById('telefono');
+  const inputEmail = document.getElementById('email');
+  const inputDescripcion = document.getElementById('descripcion');
+  const inputValorConsulta = document.getElementById('valorConsulta');
+  const medicoIdInput = document.getElementById('medicoId');
+  const preview = document.getElementById('preview');
 
   let nombre_completo = inputNombre.value.trim();
   let especialidad_id = parseInt(inputEspecialidad.value);
@@ -75,13 +71,23 @@ function altaMedicos(event) {
     alert(`Médico ${nombre_completo} registrado.`);
     guardarYRenderizar();
     preview.style.display = 'none';
-    formAltaMedico.reset();
+    document.getElementById('altaMedicoForm').reset();
   }
 }
 
 function cargarMedicoParaEdicion(id) {
   const medico = medicos.find((m) => m.id === id);
   if (medico) {
+    const inputNombre = document.getElementById('nombre_completo');
+    const inputEspecialidad = document.getElementById('especialidad');
+    const inputTelefono = document.getElementById('telefono');
+    const inputEmail = document.getElementById('email');
+    const inputDescripcion = document.getElementById('descripcion');
+    const inputValorConsulta = document.getElementById('valorConsulta');
+    const medicoIdInput = document.getElementById('medicoId');
+    const submitBtn = document.getElementById('submitBtn');
+    const cancelarBtn = document.getElementById('cancelarBtn');
+
     inputNombre.value = medico.nombre_completo;
     inputEspecialidad.value = medico.especialidad_id;
     inputTelefono.value = medico.telefono;
@@ -106,6 +112,12 @@ function cargarMedicoParaEdicion(id) {
 }
 
 function restablecerFormulario() {
+  const formAltaMedico = document.getElementById('altaMedicoForm');
+  const medicoIdInput = document.getElementById('medicoId');
+  const submitBtn = document.getElementById('submitBtn');
+  const cancelarBtn = document.getElementById('cancelarBtn');
+  const preview = document.getElementById('preview');
+
   formAltaMedico.reset();
   medicoIdInput.value = '';
   modoEdicion = false;
@@ -125,6 +137,7 @@ function eliminarMedico(id) {
     medicos = medicos.filter((medico) => medico.id !== id);
     alert('Médico eliminado.');
 
+    const medicoIdInput = document.getElementById('medicoId');
     if (parseInt(medicoIdInput.value) === id) {
       restablecerFormulario();
     }
@@ -135,6 +148,7 @@ function eliminarMedico(id) {
 
 function guardarYRenderizar() {
   localStorage.setItem('medicos', JSON.stringify(medicos));
+  const tablaBody = document.querySelector('#tablaMedicos tbody');
   renderizarMedicos(
     tablaBody,
     medicos,
@@ -143,19 +157,12 @@ function guardarYRenderizar() {
   );
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-  formAltaMedico = document.getElementById('altaMedicoForm');
-  tablaBody = document.querySelector('#tablaMedicos tbody');
-  medicoIdInput = document.getElementById('medicoId');
-  submitBtn = document.getElementById('submitBtn');
-  cancelarBtn = document.getElementById('cancelarBtn');
+function init() {
+  const formAltaMedico = document.getElementById('altaMedicoForm');
+  const cancelarBtn = document.getElementById('cancelarBtn');
+  const preview = document.getElementById('preview');
 
-  inputNombre = document.getElementById('nombre_completo');
-  inputEspecialidad = document.getElementById('especialidad');
-  inputTelefono = document.getElementById('telefono');
-  inputEmail = document.getElementById('email');
-  inputDescripcion = document.getElementById('descripcion');
-  inputValorConsulta = document.getElementById('valorConsulta');
+  preview.style.display = 'none';
 
   if (formAltaMedico) formAltaMedico.addEventListener('submit', altaMedicos);
   if (cancelarBtn) cancelarBtn.addEventListener('click', restablecerFormulario);
@@ -164,13 +171,10 @@ document.addEventListener('DOMContentLoaded', function () {
   generarSelectEspecialidades();
   generarObrasSociales();
 
-  renderizarMedicos(
-    tablaBody,
-    medicos,
-    cargarMedicoParaEdicion,
-    eliminarMedico
-  );
-});
+  guardarYRenderizar();
+}
+
+document.addEventListener('DOMContentLoaded', init);
 
 window.cargarMedicoParaEdicion = cargarMedicoParaEdicion;
 window.eliminarMedico = eliminarMedico;

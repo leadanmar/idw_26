@@ -32,7 +32,7 @@ function obtenerObrasSocialesStr(obras_sociales) {
     .join(', ');
 }
 
-function truncarDescripcion(descripcion) {
+function acortarDescripcion(descripcion) {
   if (!descripcion) return '';
   return descripcion.length > 50
     ? descripcion.substring(0, 50) + '...'
@@ -63,7 +63,7 @@ export function renderizarMedicos(
       <td>${obtenerObrasSocialesStr(medico.obras_sociales)}</td>
       <td>${medico.telefono}</td>
       <td>${medico.email}</td>
-      <td>${truncarDescripcion(medico.descripcion)}</td>
+      <td>${acortarDescripcion(medico.descripcion)}</td>
       <td>${medico.valor_consulta ? `$${medico.valor_consulta}` : '-'}</td>
       <td>
         <img src="${obtenerImagenSrc(medico)}" 
