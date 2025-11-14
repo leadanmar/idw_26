@@ -13,6 +13,7 @@ if (!localStorage.getItem('medicos')) {
 }
 
 let medicos = JSON.parse(localStorage.getItem('medicos')) || [];
+
 let nextId = medicos.length > 0 ? Math.max(...medicos.map((m) => m.id)) + 1 : 1;
 let modoEdicion = false;
 

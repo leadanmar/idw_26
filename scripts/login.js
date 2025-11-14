@@ -53,7 +53,6 @@ formLogin.addEventListener('submit', async function (event) {
 
   try {
     const isUsuario = await login(usuarioInput, claveInput);
-    console.log('Respuesta login:', isUsuario);
 
     if (isUsuario && isUsuario.accessToken) {
       sessionStorage.setItem('usuarioLogueado', isUsuario.username);
