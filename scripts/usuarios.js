@@ -6,7 +6,6 @@ export async function users() {
       'Content-Type': 'application/json',
     };
 
-    // Si hay token, lo agregamos a los headers
     if (token) {
       headers['Authorization'] = `Bearer ${token}`;
     }
@@ -29,7 +28,6 @@ export async function users() {
   }
 }
 
-// Función para obtener información del usuario logueado
 export async function getCurrentUser() {
   try {
     const token = sessionStorage.getItem('token');
